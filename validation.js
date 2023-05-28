@@ -1,8 +1,16 @@
 document.querySelector('#fake-submit').addEventListener('click', (e) => {
 	let email = document.querySelector('#workEmail').value;
 	document.querySelector('#fake-submit').textContent = 'Please wait...';
-	const url = `https://emailvalidation.abstractapi.com/v1/?api_key=$cc0186cda5944c59a1fc70c81c11a1b9&email=${email}`;
-
+	const url = `https://emailvalidation.abstractapi.com/v1/?api_key=cc0186cda5944c59a1fc70c81c11a1b9&email=${email}`;
+	function httpGetAsync(url, callback) {
+		const xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function () {
+			if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+				callback(xmlHttp.responseText);
+		};
+		xmlHttp.open('GET', url, true); // true for asynchronous
+		xmlHttp.send(null);
+	}
 	httpGetAsync(url, function (response) {
 		document.querySelector('#fake-submit').textContent = 'Submit';
 		response = JSON.parse(response);
@@ -16,13 +24,3 @@ document.querySelector('#fake-submit').addEventListener('click', (e) => {
 		}
 	});
 });
-
-function httpGetAsync(url, callback) {
-	const xmlHttp = new XMLHttpRequest();
-	xmlHttp.onreadystatechange = function () {
-		if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
-			callback(xmlHttp.responseText);
-	};
-	xmlHttp.open('GET', url, true); // true for asynchronous
-	xmlHttp.send(null);
-}
