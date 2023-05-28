@@ -1,5 +1,3 @@
-import { Token } from './config.js';
-
 document.querySelector('#fake-submit').addEventListener('click', (e) => {
 	let email = document.querySelector('#workEmail').value;
 	document.querySelector('#fake-submit').textContent = 'Please wait...';
