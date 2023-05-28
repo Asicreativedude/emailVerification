@@ -1,5 +1,10 @@
 document.querySelector('#fake-submit').addEventListener('click', (e) => {
 	let email = document.querySelector('#workEmail').value;
+	if (email === '') {
+		document.querySelector('#submit').click();
+		return;
+	}
+
 	document.querySelector('#fake-submit').textContent = 'Please wait...';
 	const url = `https://emailvalidation.abstractapi.com/v1/?api_key=cc0186cda5944c59a1fc70c81c11a1b9&email=${email}`;
 	function httpGetAsync(url, callback) {
