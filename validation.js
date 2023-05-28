@@ -12,7 +12,6 @@ document.querySelector('#fake-submit').addEventListener('click', (e) => {
 			response.deliverability === 'DELIVERABLE' &&
 			response.quality_score > 0.8
 		) {
-			console.log(response);
 			document.querySelector('#submit').click();
 		} else {
 			alert('Please enter a valid email address');
