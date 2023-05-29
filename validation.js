@@ -1,6 +1,7 @@
 document.querySelector('#fake-submit').addEventListener('click', (e) => {
 	let email = document.querySelector('#workEmail').value;
-	if (email === '') {
+	if (email === '' || email.includes('@business')) {
+		document.querySelector('#fake-submit').textContent = 'Submit';
 		document.querySelector('#submit').click();
 		return;
 	}
@@ -21,7 +22,7 @@ document.querySelector('#fake-submit').addEventListener('click', (e) => {
 		response = JSON.parse(response);
 		if (
 			response.deliverability === 'DELIVERABLE' &&
-			response.quality_score > 0.8
+			response.quality_score > 0.9
 		) {
 			document.querySelector('#submit').click();
 		} else {
@@ -29,3 +30,13 @@ document.querySelector('#fake-submit').addEventListener('click', (e) => {
 		}
 	});
 });
+
+function httpGetAsync(url, callback) {
+	const xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function () {
+		if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+			callback(xmlHttp.responseText);
+	};
+	xmlHttp.open('GET', url, true); // true for asynchronous
+	xmlHttp.send(null);
+}
